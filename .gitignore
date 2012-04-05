@@ -1,2 +1,6 @@
 /nbproject/private/
 /nbproject/
+
+/plist/*.plist
+/binary/*.ipa
+
