@@ -22,6 +22,8 @@ if(DEBUG_MODE){
 }
 ini_set('include_path',ini_get('include_path').':'.dirname(__FILE__)."/lib");
 
+require_once("DatabaseAccess.php");
+
 /**
  * shared connection func
  */
@@ -57,6 +59,9 @@ function h($str) {
  * debug用関数
  */
 function v() {
+	if (false === DEBUG_MODE) {
+		return null;
+	}
 	$mixed_var = func_get_args();
 	if (1 == count($mixed_var)) {
 		$mixed_var = $mixed_var[0];
