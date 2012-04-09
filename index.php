@@ -12,7 +12,8 @@ if (!isset($_REQUEST['ipa'])) { // POST または GET
  */
 function find_application($ipa) {
     $conn = getConnection();
-    $res = $conn->query('SELECT * from `application` where `key` = ' . $conn->quote($ipa));
+    $res = $conn->prepare('SELECT * from `application` where `key` = ?');
+    $res->execute(array($ipa));
     return ($res == null) ? null : $res->fetch(PDO::FETCH_ASSOC);
 }
 
