@@ -62,13 +62,6 @@ if ($row) {
         <title>iOS App Install</title>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
         <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-        <script type="text/javascript">
-            $(document).bind("mobileinit", function(){
-                $.extend(  $.mobile , {
-                    ajaxEnabled : false
-                });
-            });
-        </script>
         <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
     </head>
     <body>
@@ -80,8 +73,8 @@ if ($row) {
                 <h3><?php echo h($name); ?>をインストール</h3>
                 <p>インストールはプロファイルにUDID登録したデバイスのみ可能です。</p>
                 <ul data-role="listview" data-theme="g" class="ui-corner-top">
-                    <li><h4>バージョン：<?php echo h($version); ?></h4></li>
-                    <li><h4>サイズ：<?php echo h((round($size / 256) / 4) . " KB"); ?></h4></li>
+                    <li><h4>リリースバージョン：<?php echo h($version); ?></h4></li>
+                    <li><h4>サイズ：<?php echo h(number_format(round($size / 256) / 4) . " KB"); ?></h4></li>
                     <li><h4>必須OSバージョン：<?php echo h($minos); ?></h4>
                         <p>お使いの端末バージョン：<?php echo h($device); ?></p>
                     </li>
@@ -95,7 +88,7 @@ if ($row) {
                         echo 'パスワード：<input type="password" name="rawpass" size="30" /><br />
                                     <input type="submit" name="submit" value="インストール"></form>';
                     } else {
-                        echo '<a href="itms-services://?action=download-manifest&url=' . HOST_URL . '/plist/' . h($key) . '.plist" data-role="button" rel="external">';
+                        echo '<a href="itms-services://detail.php?action=download-manifest&url=' . HOST_URL . 'plist/' . h($key) . '.plist" data-role="button" rel="external">';
                         echo h($name) . 'をインストール</a>';
                     }
                     ?>
@@ -103,6 +96,7 @@ if ($row) {
                 <p>このURLをコピー</p>
                 <textarea><?php echo HOST_URL; ?>index.php?ipa=<?php echo h($key); ?></textarea>
             </div>
+            <a href="index.php" data-role="button">一覧に戻る</a>
             <div data-role="footer">
                 <h4>(C) SimplePHPAdhocServer</h4>
             </div>

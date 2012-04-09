@@ -13,19 +13,6 @@ function readPlist($plistdata) {
     return $plist->toArray();
 }
 
-/**
- * insert MySQL
- */
-function insertApplication($key, $name, $version, $identifier, $size, $minos, $pass = null) {
-    $conn = getConnection();
-    if (empty($pass)) {
-        return $conn->query('INSERT INTO `application` VALUES (null , "' . $key . '", "' . $conn->quote($name)
-                        . '", "' . $conn->quote($version) . '", "' . $conn->quote($identifier) . '", null, ' . $size . ', "' . $conn->quote($minos) . '", now())');
-    } else {
-        return $conn->query('INSERT INTO `application` VALUES (null , "' . $key . '", "' . $conn->quote($name)
-                        . '", "' . $conn->quote($version) . '", "' . $conn->quote($identifier) . '", "' . sha1($pass) . '", ' . $size . ', "' . $conn->quote($minos) . '", now())');
-    }
-}
 
 /**
  * main
@@ -73,8 +60,8 @@ if (isset($_POST['submit'])) {
                 } else {
                     file_put_contents('plist/' . $key . md5($_POST['pass']) . '.plist', $template);
                 }
-                insertApplication($key, $appname, $version, $identifier, $size, $minos, $_POST['pass']);
-                header("Location: index.php?ipa=" . $key);
+                $dba->insertApplication($key, $appname, $version, $identifier, $size, $minos, $handle->file_src_name, $_POST['pass'], $_POST['memo']);
+                header("Location: index.php");
             }  else {
                 echo "Cannot parse plst file";
             }
@@ -93,7 +80,7 @@ if (isset($_POST['submit'])) {
 // start html with bootstrap template http://twitter.github.com/bootstrap/
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <title>SimplePHPAdhocServer</title>
@@ -104,7 +91,7 @@ if (isset($_POST['submit'])) {
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Le styles -->
-    <link href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="./bootstrap.css" rel="stylesheet">
     <style type="text/css">
     html,body{background-color:#eee}
     body{padding-top:40px}
@@ -143,6 +130,12 @@ if (isset($_POST['submit'])) {
                 <label for="upfile">Password: </label>
                 <div class="input">
                   <input class="xlarge" type="password" name="pass" size="30" />(optional)
+                </div>
+              </div><!-- /clearfix -->
+              <div class="clearfix">
+                <label for="upfile">memo: </label>
+                <div class="input">
+                  <input class="xlarge" type="text" name="memo" size="30" />(optional)
                 </div>
               </div><!-- /clearfix -->
               <div class="actions span7">
