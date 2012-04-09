@@ -44,7 +44,14 @@ function getConnection(){
     return $_conn;
 }
 
-
+/**
+ * htmlspecialchars のラッパー関数
+ * @param string $str
+ * @return string
+ */
+function h($str) {
+	return htmlspecialchars($str, ENT_QUOTES);
+}
 
 /**
  * debug用関数

@@ -1,6 +1,6 @@
 <?php
 /*
- * index.php
+ * detail.php
  */
 require_once 'config.inc.php';
 if (!isset($_REQUEST['ipa'])) { // POST または GET
@@ -12,14 +12,11 @@ if (!isset($_REQUEST['ipa'])) { // POST または GET
  */
 function find_application($ipa) {
     $conn = getConnection();
-    $res = $conn->prepare('SELECT * from `application` where `key` = ?');
+    $res = $conn->prepare('SELECT * FROM `application WHERE key = ?');
     $res->execute(array($ipa));
     return ($res == null) ? null : $res->fetch(PDO::FETCH_ASSOC);
 }
 
-function h($str) {
-    return htmlspecialchars($str, ENT_QUOTES);
-}
 
 $isDownload = (isset($_POST['submit'])) ? true : false;
 // アプリケーション情報を取得
