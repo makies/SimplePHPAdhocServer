@@ -44,4 +44,18 @@ function getConnection(){
     return $_conn;
 }
 
+
+
+/**
+ * debug用関数
+ */
+function v() {
+	$mixed_var = func_get_args();
+	if (1 == count($mixed_var)) {
+		$mixed_var = $mixed_var[0];
+	}
+	var_dump($mixed_var);
+	print "\n";
+}
+
 ?>
