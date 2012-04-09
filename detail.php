@@ -7,20 +7,12 @@ if (!isset($_REQUEST['ipa'])) { // POST または GET
     echo "パラメータが不適切です。";
     exit;
 }
-/**
- * find application
- */
-function find_application($ipa) {
-    $conn = getConnection();
-    $res = $conn->prepare('SELECT * FROM `application WHERE key = ?');
-    $res->execute(array($ipa));
-    return ($res == null) ? null : $res->fetch(PDO::FETCH_ASSOC);
-}
+
 
 
 $isDownload = (isset($_POST['submit'])) ? true : false;
 // アプリケーション情報を取得
-$row = find_application($_REQUEST['ipa']);
+$row = $dba->find_application($_REQUEST['ipa']);
 if ($row) {
     $hasPass = false;
     $password = null;

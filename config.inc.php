@@ -23,6 +23,7 @@ if(DEBUG_MODE){
 ini_set('include_path',ini_get('include_path').':'.dirname(__FILE__)."/lib");
 
 require_once("DatabaseAccess.php");
+$dba = DatabaseAccess::singleton();
 
 /**
  * shared connection func
