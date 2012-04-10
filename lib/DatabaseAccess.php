@@ -120,7 +120,7 @@ class DatabaseAccess {
 	* @return array
 	*/
 	function find_application_list() {
-		$sql_str = 'SELECT * FROM `application` ORDER BY timestamp DESC';
+		$sql_str = 'SELECT * FROM `application` ORDER BY timestamp DESC LIMIT '. APP_LIST_LIMIT;
 		$sql_param = array();
 		$res = $this->fetch($sql_str, $sql_param);
 		return $res;
