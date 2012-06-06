@@ -8,10 +8,11 @@ define("DB_NAME" , "phpadhoc");
 define("DB_HOST" , "localhost");
 define("DB_USER" , "username");
 define("DB_PASS" , "password");
+define("DB_PORT" , 3306);
 
 define("DEBUG_MODE" , 0); // 1にすると画面上にエラーを表示します。
 
-define("APP_LIST_LIMIT" , 5); //アプリ一覧に表示する件数　新しい方からn件表示します。
+define("APP_LIST_LIMIT" , 10); //アプリ一覧に表示する件数　新しい方からn件表示します。
 
 date_default_timezone_set("Asia/Tokyo");
 mb_internal_encoding("utf-8");

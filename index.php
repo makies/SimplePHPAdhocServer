@@ -17,7 +17,11 @@ $rows = $dba->find_application_list();
 <link rel="stylesheet"
 	href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
 <style type="text/css">
-li.ipa p span{ margin-right: 1.5em;}
+dl.ipa {
+	cursor: pointer;
+	background-coloer: #FFF;
+	border: 1px solid #ccc;
+}
 	
 </style>
 
@@ -28,7 +32,7 @@ li.ipa p span{ margin-right: 1.5em;}
 <body>
 	<div data-role="page">
 		<div data-role="header">
-			<h1>アプリ一覧</h1>
+			<h1>アプリケーションリスト</h1>
 		</div>
 		<div data-role="content">
 		<?php
@@ -42,12 +46,15 @@ li.ipa p span{ margin-right: 1.5em;}
 			?>
 			<li class="ipa">
 				<a href="detail.php?ipa=<?php echo $row['key']; ?>">
-					<h3 class="ui-li-heading"><?php echo h($row['name']); ?></h3>
+					<h3 class="ui-li-heading"><?php echo h($row['file_name']);?>(<?php echo h($row['name']); ?>)</h3>
 					<p class="ui-li-desc">
-						<span><b>ファイル名</b>: <?php echo $row['file_name'];?></span>
 						<span><b>リリースバージョン</b>: <?php echo $row['version'];?></span>
 						<br />
 						<span><b>アップロード日時</b>: <?php echo $row['timestamp'];?></span>
+						<br />
+						<?php if (strlen($row['memo'])) { ?>
+						<span><b>メモ</b>：<?php echo h($row['memo']); ?></span>
+						<?php } ?>
 					</p>
 					<p class="ui-li-desc"></p>
 				</a>
